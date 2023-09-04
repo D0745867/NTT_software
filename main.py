@@ -7,15 +7,17 @@ class Root:
     #   self.m = m
 
     @staticmethod
-    # N是幾個項次，P是
+    # N是幾個項次，P是模數
+    # Wn = g ^ (p-1)/n modp
     def t_factor(root, N, P):
         factors = []
-        for i in range(N):
+        wn = root ** ((P - 1) / N)
+        for i in range(int(N/2)):
             pi = i * 2
             if pi == 0:
                 w = 1
             else:
-                w = (root ** ((P - 1) / pi)) % P
+                w = (wn**pi) % P
                 print(root, P-1, pi, w)
             factors.append(w)
         return factors
@@ -61,4 +63,4 @@ a = Root()
 # print(is_coprime) # False
 _, totient = a.totient(7)
 roots, st_root = a.find_root(totient, len(totient) + 1)
-print(a.t_factor(3, 4, 17))
+print(a.t_factor(3, 8, 17))
